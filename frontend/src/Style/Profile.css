@@ -1,0 +1,60 @@
+/* ProfilePage.css */
+
+.profile-page {
+  color: #ffffff;
+  padding: 2rem;
+  font-family: "Inter", sans-serif;
+  background-color: #0f111a; /* fond sombre */
+  min-height: 80vh;
+}
+
+.profile-page h1,
+.profile-page h2 {
+  color: #00ffff; /* accent néon cyan */
+}
+
+.user-info {
+  background-color: #1c1e2a; /* card sombre */
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+  margin-bottom: 2rem;
+}
+
+.user-info p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.stats-section {
+  margin-top: 2rem;
+}
+
+.stats-section .grid {
+  gap: 1.5rem;
+}
+
+.stats-section .stat-card {
+  background-color: #1c1e2a;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stats-section .stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+}
+
+.stats-section .stat-card .label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #a0f0f0;
+}
+
+.stats-section .stat-card .value {
+  font-size: 2rem;
+  font-weight: bold;
+  c

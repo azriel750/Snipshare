@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchSnippets } from "../appi";
 import { Link } from "react-router-dom";
+import "../Style/Home.css";
 
 export default function Home() {
   const [latest, setLatest] = useState([]);
@@ -17,15 +18,13 @@ export default function Home() {
   return (
     <div className="home-container">
       <section className="hero">
-        <h1 className="hero-title">SnipShare</h1>
+        <h1 className="hero-title">Partagez,créer et visionnez vos snippets simplement !</h1>
         <p className="hero-subtitle">
-          Stockez, partagez et explorez des snippets de code.  
-          Simple. Rapide. Efficace.
+         Stockez, commentez et réutilisez vos bouts de code en toute sécurité.
         </p>
 
         <div className="hero-buttons">
-          <Link to="/snippets" className="btn-primary">Voir les snippets</Link>
-          <Link to="/snippets" className="btn-secondary">Créer un snippet</Link>
+          <Link to="/snippets" className="btn-primary">Modifier son Profil ?</Link>
         </div>
       </section>
       <section className="section-latest">
