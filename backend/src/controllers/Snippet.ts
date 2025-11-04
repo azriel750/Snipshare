@@ -38,16 +38,41 @@ export class SnippetController extends Controller {
   }
 
   async getAll() {
-    try {
-      const snippets = await prisma.snippet.findMany({
-        orderBy: { creer_le: "desc" },
-      });
-      return this.json(snippets);
-    } catch (err: any) {
-      console.error(err);
-      return this.error("Erreur lors de la récupération des snippets");
-    }
+  const { q, langage, tag } = this.request.query;
+
+  try {
+    const snippets = await prisma.snippet.findMany({
+      where: {
+        AND: [
+          q ? { OR: [
+              { titre: { contains: String(q), mode: "insensitive" } },
+              { code: { contains: String(q), mode: "insensitive" } },
+          ] } : {},
+          langage ? { langage: { contains: String(langage), mode: "insensitive" } } : {},
+          tag ? {
+            snippetTag: {
+              some: {
+                tag: { name: { equals: String(tag), mode: "insensitive" } }
+              }
+            }
+          } : {}
+        ]
+      },
+      include: {
+        snippetTag: {
+          include: { tag: true }
+        }
+      },
+      orderBy: { creer_le: "desc" }
+    });
+
+    return this.json(snippets);
+  } catch (err) {
+    console.error(err);
+    return this.error("Erreur lors de la récupération filtrée.");
   }
+}
+
 
   async getById(id: number) {
     try {

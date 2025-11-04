@@ -65,6 +65,11 @@ export default function EditSnippet({ snippet, onUpdated, onCancel }: EditSnippe
         placeholder="Code"
         required
       />
+           <input
+  placeholder="Tags séparés par virgule (ex: js, react)"
+  value={tags}
+  onChange={(e) => setTags(e.target.value)}
+/>
       <select value={visibilite} onChange={(e) => setVisibilite(e.target.value)}>
         <option value="public">Public</option>
         <option value="private">Privé</option>

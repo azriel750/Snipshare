@@ -6,6 +6,8 @@ import Register from "./pages/Register";
 import Snippets from "./pages/Snippets";
 import ProfilePage from "./pages/ProfilePage";
 import SnippetDetail from "./pages/SnippetDetail";
+import Footer from "./composant/Footer";
+
 
 function App() {
   return (
@@ -19,9 +21,12 @@ function App() {
           <Route path="/snippets" element={<Snippets />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/snippets/:id" element={<SnippetDetail />} />
+          
         </Routes>
       </div>
+      <Footer/>
     </Router>
+    
   );
 }
 

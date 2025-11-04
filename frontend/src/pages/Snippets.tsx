@@ -60,7 +60,7 @@ export default function Snippets() {
       {tagFilter && (
         <div style={{ marginBottom: "10px" }}>
           Filtré par tag : <strong>{tagFilter}</strong>{" "}
-          <button onClick={() => setTagFilter(null)}>❌ Supprimer</button>
+          <button onClick={() => setTagFilter(null)}> Supprimer</button>
         </div>
       )}
 
