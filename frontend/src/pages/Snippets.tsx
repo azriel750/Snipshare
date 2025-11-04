@@ -3,6 +3,8 @@ import { fetchSnippets } from "../appi";
 import CreateSnippet from "../composant/CreateSnippet";
 import EditSnippet from "../composant/EditSnippet";
 import TagFilter from "../composant/atoms/TagFilter";
+import "../Style/Snippet.css";
+
 
 interface Snippet {
   identifiant_snippet: number;
@@ -38,6 +40,7 @@ export default function Snippets() {
   }, [search, langageFilter, tagFilter]);
 
   return (
+    <div className="snippet-container">
     <div>
       <h1>Snippets</h1>
 
@@ -60,7 +63,7 @@ export default function Snippets() {
       {tagFilter && (
         <div style={{ marginBottom: "10px" }}>
           Filtré par tag : <strong>{tagFilter}</strong>{" "}
-          <button onClick={() => setTagFilter(null)}>❌ Supprimer</button>
+          <button onClick={() => setTagFilter(null)}> Supprimer</button>
         </div>
       )}
 
@@ -111,6 +114,7 @@ export default function Snippets() {
           )}
         </div>
       ))}
+    </div>
     </div>
   );
 }

@@ -25,7 +25,7 @@ export default function CreateSnippet({ onCreated }: { onCreated: () => void }) 
       setLangage("");
       setVisibilite("public");
 
-      onCreated(); 
+      onCreated();
     } catch (err) {
       console.error(err);
       alert("Impossible de créer le snippet");
@@ -57,6 +57,7 @@ export default function CreateSnippet({ onCreated }: { onCreated: () => void }) 
       <select value={visibilite} onChange={(e) => setVisibilite(e.target.value)}>
         <option value="public">Public</option>
         <option value="private">Privé</option>
+        <option value="non-repertorie">Non répertorié</option>
       </select>
       <button type="submit" disabled={loading}>
         {loading ? "Création..." : "Créer Snippet"}

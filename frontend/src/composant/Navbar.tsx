@@ -1,28 +1,39 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import SearchFilter from "./atoms/SearchBar";
+import "../Style/Navbar.css"
 
-export default function Navbar() {
-  const isLoggedIn = !!localStorage.getItem("token");
+interface NavbarProps {
+  tags: string[];
+  onFilter: (filters: { q?: string; langage?: string; tag?: string }) => void;
+}
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/";
-  };
+export default function Navbar({ tags, onFilter }: NavbarProps) {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="navbar">
-      <h2>🔮 SnipShare</h2>
-      <div>
-        <Link to="/">Accueil</Link>
-        <Link to="/snippets">Snippets</Link>
-        {!isLoggedIn ? (
-          <>
-            <Link to="/login">Connexion</Link>
-            <Link to="/register">Inscription</Link>
-          </>
-        ) : (
-          <button onClick={handleLogout}>Déconnexion</button>
-        )}
+      <div className="navbar-left">
+        <Link to="/" className="logo">
+          SnipShare
+        </Link>
+        <div className="links">
+          <Link to="/snippets">Snippets</Link>
+          <Link to="/profile">Profil</Link>
+        </div>
       </div>
+
+      <div className="navbar-right">
+        <SearchFilter
+          tags={tags}
+          langages={["javascript","typescript","python","php","c#","c++"]}
+          onFilter={onFilter}
+        />
+      </div>
+
+      <button className="menu-btn" onClick={() => setIsOpen(!isOpen)}>
+        ☰
+      </button>
     </nav>
   );
 }
