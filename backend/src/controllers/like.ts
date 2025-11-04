@@ -43,5 +43,27 @@ export class LikeController extends Controller {
     return this.error(err.message, 500);
   }
 }
+async countLikes() {
+  const snippetId = Number(this.request.params.id);
+
+  const count = await prisma.aimer.count({
+    where: { identifiant_snippet: snippetId }
+  });
+
+  return this.json({ count });
+}
+async getLikedByUser(userId: number) {
+  try {
+    const likes = await prisma.aimer.findMany({
+      where: { identifiant_utilisateur: userId },
+      include: { snippet: true },
+    });
+
+    return this.json(likes.map(l => l.snippet));
+  } catch (err: any) {
+    console.error(err);
+    return this.error("Erreur lors de la récupération des likes");
+  }
+}
 
 }

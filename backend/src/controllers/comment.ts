@@ -47,4 +47,14 @@ export class CommentController extends Controller {
     return this.error(err.message, 500);
   }
 }
+async getCommentsBySnippet() {
+  const id = Number(this.request.params.id);
+
+  const comments = await prisma.commenter.findMany({
+    where: { identifiant_snippet: id },
+    orderBy: { creer_le: 'desc' }
+  });
+
+  return this.json(comments);
+}
 }
