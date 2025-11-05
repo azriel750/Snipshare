@@ -39,7 +39,7 @@ export class CommentController extends Controller {
   try {
     const comments = await prisma.commenter.findMany({
       where: { identifiant_snippet: snippetId },
-      orderBy: { creer_le: "asc" },
+      orderBy: { date_: "asc" },
     });
     return this.json(comments);
   } catch (err: any) {
@@ -52,7 +52,7 @@ async getCommentsBySnippet() {
 
   const comments = await prisma.commenter.findMany({
     where: { identifiant_snippet: id },
-    orderBy: { creer_le: 'desc' }
+    orderBy: { date_: 'desc' }
   });
 
   return this.json(comments);

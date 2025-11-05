@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { registerUser } from "../appi";
+
 
 export default function Register() {
   const [nom, setNom] = useState("");
@@ -11,14 +13,7 @@ export default function Register() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nom, email, motdepasse }),
-      });
-
-      if (!res.ok) throw new Error("Erreur lors de l'inscription");
-
+      await registerUser({ nom, email, motdepasse });
       alert("Inscription réussie 🎉 Vous pouvez maintenant vous connecter !");
       window.location.href = "/login";
     } catch (err) {

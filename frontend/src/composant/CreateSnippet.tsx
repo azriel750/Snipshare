@@ -6,16 +6,21 @@ export default function CreateSnippet({ onCreated }: { onCreated: () => void }) 
   const [langage, setLangage] = useState("");
   const [visibilite, setVisibilite] = useState("public");
   const [loading, setLoading] = useState(false);
+  const [tagsText, setTagsText] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
+const tagsArray = tagsText
+  .split(",")
+  .map(t => t.trim())
+  .filter(Boolean)
+  .slice(0, 5);
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/snippets`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ titre, code, langage, visibilite }),
+        body: JSON.stringify({ titre, code, langage, visibilite, tags: tagsArray })
       });
 
       if (!res.ok) throw new Error("Erreur lors de la création");
@@ -54,6 +59,11 @@ export default function CreateSnippet({ onCreated }: { onCreated: () => void }) 
         onChange={(e) => setCode(e.target.value)}
         required
       />
+      <input
+  placeholder="Tags (séparés par virgule)"
+  value={tagsText}
+  onChange={(e) => setTagsText(e.target.value)}
+/>
       <select value={visibilite} onChange={(e) => setVisibilite(e.target.value)}>
         <option value="public">Public</option>
         <option value="private">Privé</option>
