@@ -22,6 +22,21 @@ export async function fetchUserSnippets() {
   if (!res.ok) throw new Error("Erreur API fetchUserSnippets");
   return res.json();
 }
+export async function registerUser(data: { nom: string; email: string; motdepasse: string }) {
+  const res = await fetch(`${API_URL}/api/user/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    const error = await res.text();
+    throw new Error(error || "Erreur lors de l'inscription");
+  }
+
+  return res.json();
+}
+
 export async function fetchUserStats() {
   const token = localStorage.getItem("token");
 

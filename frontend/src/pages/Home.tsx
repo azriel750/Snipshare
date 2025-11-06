@@ -24,7 +24,7 @@ export default function Home() {
         </p>
 
         <div className="hero-buttons">
-          <Link to="/snippets" className="btn-primary">Modifier son Profil ?</Link>
+          <Link to="/profile" className="btn-primary">Modifier son Profil ?</Link>
         </div>
       </section>
       <section className="section-latest">

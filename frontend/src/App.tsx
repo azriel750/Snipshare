@@ -9,6 +9,9 @@ import SnippetDetail from "./pages/SnippetDetail";
 import Footer from "./composant/Footer";
 import { fetchSnippets } from "./appi";
 import Navbar from "./composant/Navbar";
+import ExplorePage from "./pages/SearchPage";
+import CreateSnippetPage from "./pages/CreateSnippet";
+import EditSnippetPage from "./pages/EditSnippetPage";
 
 function App() {
   const [snippets, setSnippets] = useState<any[]>([]);
@@ -35,6 +38,10 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/snippets" element={<Snippets snippets={snippets} />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/snippets/:id" element={<SnippetDetail />} />
+          <Route path="/explore" element={<ExplorePage />} />
+          <Route path="/snippets/new" element={<CreateSnippetPage />} />
+          <Route path="/snippets/:id/edit" element={<EditSnippetPage />} />
           <Route path="/snippets/:id" element={<SnippetDetail />} />
         </Routes>
       </div>

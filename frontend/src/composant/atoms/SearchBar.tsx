@@ -27,7 +27,7 @@ export default function SearchFilter({ tags, langages, onFilter }: Props) {
 
       <select value={langage} onChange={(e) => setLangage(e.target.value)}>
         <option value="">Tous les langages</option>
-        {langages.map((l) => (
+        {(langages ?? []).map((l) => (
           <option key={l} value={l}>
             {l}
           </option>
@@ -36,7 +36,7 @@ export default function SearchFilter({ tags, langages, onFilter }: Props) {
 
       <select value={tag} onChange={(e) => setTag(e.target.value)}>
         <option value="">Tous les tags</option>
-        {tags.map((t) => (
+        {(tags ?? []).map(t => (
           <option key={t} value={t}>
             #{t}
           </option>

@@ -20,7 +20,7 @@ export default function Login() {
       if (!res.ok) throw new Error("Identifiants invalides");
 
       const data = await res.json();
-      localStorage.setItem("token", data.access_token);
+      localStorage.setItem("token", data.token || data.access_token ||"");
 
       alert("Connexion réussie !");
       window.location.href = "/snippets";
