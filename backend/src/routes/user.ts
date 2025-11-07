@@ -6,12 +6,18 @@ import jwt from "jsonwebtoken";
 import prisma from "../prismaclient";
 
 const router = express.Router();
-const JWT_SECRET = process.env.BACKEND_JWT_SECRET || "secret"; 
+const JWT_SECRET = process.env.BACKEND_JWT_SECRET || "secret";
 
-router.post("/register", (req, res) => {
-  const controller = new UserController(req, res);
-  return controller.register();
+router.post("/register", async (req, res) => {
+  try {
+    const controller = new UserController(req, res);
+    await controller.register();
+  } catch (err) {
+    console.error("Erreur dans register :", err);
+    res.status(500).json({ error: "Erreur interne serveur" });
+  }
 });
+
 router.post("/login", async (req, res) => {
   const { email, motdepasse } = req.body;
 

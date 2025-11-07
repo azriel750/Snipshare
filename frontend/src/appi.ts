@@ -23,7 +23,7 @@ export async function fetchUserSnippets() {
   return res.json();
 }
 export async function registerUser(data: { nom: string; email: string; motdepasse: string }) {
-  const res = await fetch(`${API_URL}/api/user/register`, {
+  const res = await fetch(`${API_URL}/api/users/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),

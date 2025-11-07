@@ -28,15 +28,14 @@ services:
     env_file:
       - .env.dev
     environment:
-      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}
+      - DATABASE_URL=${DATABASE_URL}
       - JWT_SECRET=${BACKEND_JWT_SECRET}
       - JWT_RT_TTL=${BACKEND_JWT_RT_TTL}
     ports:
       - "${BACKEND_PORT}:3000"
     volumes:
       - ./backend:/app
-      - /app/node_modules
-    command: sh -c "npx prisma migrate deploy && npm run dev"
+    command: sh -c "npx prisma generate && npx prisma migrate deploy && npm run dev"
 
   frontend:
     build:
@@ -52,7 +51,6 @@ services:
       - "${FRONTEND_PORT}:5173"
     volumes:
       - ./frontend:/app
-      - /app/node_modules
 
 volumes:
   postgres_data:
