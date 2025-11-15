@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   db:
     image: postgres:16
@@ -28,14 +30,14 @@ services:
     env_file:
       - .env.dev
     environment:
-      - DATABASE_URL=${DATABASE_URL}
-      - JWT_SECRET=${BACKEND_JWT_SECRET}
-      - JWT_RT_TTL=${BACKEND_JWT_RT_TTL}
+      DATABASE_URL: ${DATABASE_URL}
+      BACKEND_JWT_SECRET: ${BACKEND_JWT_SECRET}
+      BACKEND_JWT_RT_TTL: ${BACKEND_JWT_RT_TTL}
     ports:
       - "${BACKEND_PORT}:3000"
     volumes:
       - ./backend:/app
-    command: sh -c "npx prisma generate && npx prisma migrate deploy && npm run dev"
+    command: sh -c "npx prisma migrate deploy && npm run dev"
 
   frontend:
     build:
@@ -46,11 +48,29 @@ services:
     env_file:
       - .env.dev
     environment:
-      - VITE_API_URL=${FRONTEND_VITE_API_URL}
+      VITE_API_URL: ${FRONTEND_VITE_API_URL}
     ports:
       - "${FRONTEND_PORT}:5173"
     volumes:
       - ./frontend:/app
+
+  tester:
+    build:
+      context: ./backend
+    depends_on:
+      - backend
+    command: npx tsx testBackend.ts
+    env_file:
+      - .env.dev
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      BACKEND_JWT_SECRET: ${BACKEND_JWT_SECRET}
+      BACKEND_JWT_RT_TTL: ${BACKEND_JWT_RT_TTL}
+    volumes:
+      - ./backend:/app
+    entrypoint: sh -c "apk add --no-cache curl && \
+                        until curl -s http://backend:3000; do echo waiting; sleep 2; done && \
+                        npx tsx testBackend.ts"
 
 volumes:
   postgres_data:
